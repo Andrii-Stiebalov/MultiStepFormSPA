@@ -1,0 +1,30 @@
+%inputForm {
+  width: 345px;
+  height: 40px;
+  padding: 9px 8px;
+  
+  background: #FFFFFF;
+  border: 1px solid rgba(29, 36, 82, 0.1);
+  border-radius: 8px;
+  
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+%mainText {
+  font-family: 'Inter';
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 23px;
+}
+
+%afterIcon {
+  display: block;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

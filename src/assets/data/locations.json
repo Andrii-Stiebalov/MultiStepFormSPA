@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Berlin",
+    "id": "berlin",
+    "value": ""
+  },
+  {
+    "name": "Poland Office",
+    "id": "poland",
+    "value": ""
+  },
+  {
+    "name": "Venice Office",
+    "id": "venice",
+    "value": ""
+  },
+  {
+    "name": "USA Office",
+    "id": "USA",
+    "value": ""
+  },
+  {
+    "name": "Canada",
+    "id": "canada",
+    "value": ""
+  },
+  {
+    "name": "Ukraine Kiyv Lukivska 7 Main Office",
+    "id": "Kiyv",
+    "value": ""
+  },
+  {
+    "name": "Mexico",
+    "id": "mexico",
+    "value": ""
+  }
+]

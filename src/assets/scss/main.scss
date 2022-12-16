@@ -1,0 +1,74 @@
+@import './index.scss';
+
+.inputForm {
+  @extend %inputForm;
+  @extend %mainText;
+  
+  color: $mainColor
+}
+
+.inputFormTitle {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+
+  margin-bottom: 4px;
+  margin-top: 0;
+  
+  color: $subtitleColor;
+}
+
+.mainText {
+  @extend %mainText;
+  color: $mainColor;
+}
+
+.multiselect { 
+  max-width: 345px;
+  &__single {
+    @extend %mainText;
+  }
+  &__tags {
+    @extend %inputForm;
+
+    padding: 8px 40px 0 7px;
+    color: $mainColor;
+  }
+
+  &_tag {
+    background-color: #F4F4FF;
+    max-width: 121px;
+
+    color: $mainColor;
+    font-family: "Inter";
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 14px;
+
+    &-icon {
+      &:hover {
+        background-color: $mainColor;
+      }
+
+      &:after {
+        color: #1D245240;
+        font-size: 16px;
+        line-height: 16px;
+      }
+    }
+  }
+
+  &__strong {
+    color: $mainColor;
+    font-weight: 600;
+    font-size: 12px;
+    background-color: #F4F4FF;
+    padding: 3px 8px;
+    border-radius: 8px;
+  }
+
+  &__option--highlight {
+    background: $mainColor;
+    font-family: inherit;
+  }
+}
