@@ -95,6 +95,18 @@ export default {
       this.curentStep++;
     },
 
+    keydownNextStep(event) {
+      if(event.keyCode === 9) {
+        event.preventDefault();
+        if (this.curentStep === InviteUserFormSteps.steps.length) {
+          this.curentStep = 1;
+          return;
+        }
+
+      this.curentStep++;
+      }
+    },
+
     goToStep(index) {
       this.curentStep = index;
     },
@@ -108,6 +120,14 @@ export default {
       console.log(this.InviteUserFormSteps.steps.indexOf(nameIndex) + 1 === this.curentStep)
       return this.InviteUserFormSteps.steps.indexOf(nameIndex) + 1 === this.curentStep;
     }
+  },
+
+  mounted() {
+    window.addEventListener("keydown", this.keydownNextStep)
+    
+  },
+  unmounted() {
+    window.removeEventListener("keydown", this.keydownNextStep)
   },
 
   components: {
