@@ -1,4 +1,4 @@
-# invite_user-spa
+# MultiStepFormSPA 📋
 
 ## Project setup
 ```
