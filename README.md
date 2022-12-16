@@ -1,6 +1,30 @@
 # MultiStepFormSPA 📋
 
+This is the implementation of Multi Step Form.
+
+Project time: 3 days 🛰
+
+
+## Used technologies:
+ Vue👽
+ 
+ SCSS👛
+ 
+ WebPack📦
+ 
+ MultiSelect.vue📋
+ 
+ elementUi.vue🌐
+ 
+ and 
+ 
+ Wrote my own component to implement the collapse 🤓
+ 
+ ## Mistakes 🐥
+ Naming: I'm currently reading the book "Clean Code" by Robert C. Martin. There, all the naming is written in CamelCase and after reading it, I forgot about class naming and instead of using BEM I wrote in CamelCase, when I noticed it was already too late.😅
+
 ## Project setup
+
 ```
 npm install
 ```
