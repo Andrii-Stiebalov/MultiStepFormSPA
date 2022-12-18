@@ -21,11 +21,13 @@
 <script>
 import DeepSelect from './AvailableDocumentDeepSelect.vue'
 export default {
+
   data () {
     return {
       isSelectAll: false,
     }
   },
+
   props: {
     documentGroup: {
       type: Object,
@@ -33,9 +35,11 @@ export default {
     isSelectAllColumns: Boolean,
     changeCountOfSelected: Function
   },
+
   components: {
     DeepSelect,
   },
+
   watch: {
     isSelectAllColumns(val) {
       console.log(val, 'Select')

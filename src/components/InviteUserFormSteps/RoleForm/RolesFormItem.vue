@@ -119,7 +119,7 @@ export default {
     Colapse
   },
   watch: {
-  roles : {
+    roles : {
       handler: function() {
         const originalSelectValues = [];
         this.roles.forEach(role => {
@@ -134,8 +134,10 @@ export default {
       },
       deep: true,
     },
+
     allBelowAccessTo(value, oldValue) {
       let deleteValue;
+
       if(oldValue.length > value.length) {
         deleteValue = oldValue.find(val => !value.includes(val))
         this.onAllBelowRolesOff(deleteValue)
@@ -147,16 +149,13 @@ export default {
 
       this.onAllBelowRolesOn(newValue);
     },
-    allBelowMenegment(val) {
-      this.managmentData = this.managmentData.map(data => {
-        return { ...data, value: val }
-      } )
-    }
   },
+
   methods: {
     setCategorySelected(category) {
       this.categoryOfSelected = [...  this.category, category]
     },
+    
     onAllBelowRolesOn(category) {
       let changedRole;
         changedRole = this.roles
@@ -165,6 +164,7 @@ export default {
 
       this.roles = changedRole
     },
+
     onAllBelowRolesOff(category) {
       let changedRole;
         changedRole = this.roles
@@ -173,7 +173,6 @@ export default {
           return  {...role, value: filteredValue}});
       this.roles = changedRole
     },
-
   },
 }
 </script>
@@ -196,7 +195,6 @@ export default {
     margin-bottom: 21px;
   }
 }
-
 
 .warningLink {
   color: $secondaryColor;
@@ -226,7 +224,6 @@ export default {
   font-weight: 500;
   line-height: 18px;
   color: rgba(29, 36, 82, 0.5);
-
 }
 
 .warningIcon {
@@ -290,7 +287,6 @@ export default {
   }
 }
 
-
 .checkboxContainerItem {
   justify-self: start;
 }
@@ -298,7 +294,6 @@ export default {
 .roleFormContainer {
   display: flex;
   flex-wrap: wrap;
-  
 }
 
 .roleFormSectionContainer {

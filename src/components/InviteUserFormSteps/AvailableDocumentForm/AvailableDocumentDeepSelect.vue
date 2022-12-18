@@ -49,14 +49,17 @@ export default {
         value: false
       }
   },
+
   props: { 
     document: Object,
     isSelectAll: Boolean,
     changeCountOfSelected: Function
   },
+
   components: {
     Colapse
   },
+
   methods: {
     setOpenSelects(title) {
       if (this.openSelects.includes(title)) {
@@ -68,6 +71,7 @@ export default {
       this.openSelects = [...this.openSelects, title]; 
     }
   },
+  
   watch: {
     isSelectAll() {
       this.value = this.isSelectAll

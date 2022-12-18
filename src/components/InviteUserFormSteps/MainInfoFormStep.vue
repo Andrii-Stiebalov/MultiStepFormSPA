@@ -22,7 +22,7 @@
         name="phone" 
         class="inputForm"
         :value="phone"
-        v-on:keydown="phoneValidator"
+        @input="phoneValidator"
       >
     </label>
     <label for="avai" class="mainLabel">
@@ -39,6 +39,7 @@
         placeholder=""
         deselectLabel=""
         selectLabel=""
+        :disabled="isDeseabledMultiseelct"
         @input="onAvailableCompaniesSelecte"
       >
         <template 
@@ -85,6 +86,10 @@ export default {
       availableCompanies: [],
     }
   },
+  
+  props: {
+    isDeseabledMultiseelct: Boolean,
+  },
 
   components: {
     Multiselect,
@@ -97,7 +102,9 @@ export default {
     
       const phoneFormats = [3, 7, 11, 14];
 
-      if (!phoneData.includes('+')) {
+      phoneData = phoneData.split('').filter(letter => letter.toUpperCase() === letter).join('');
+
+      if (!phoneData.includes('+') && phoneData.length === 1) {
         phoneData = '+' + phoneData;
       }
 
@@ -106,15 +113,10 @@ export default {
       }
 
       if (phoneLength > 17) {
-        phoneData = phoneData.slice(0, 16);
+        phoneData = phoneData.substr(0, 16);
       }
 
       this.phone = phoneData;
-      console.log(this.mainInfoFields)
-    },
-
-    limitText(count) {
-    return `+${count}`
     },
 
     onAvailableCompaniesSelecte(e) {

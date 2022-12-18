@@ -14,29 +14,14 @@
 
 <script> 
 import RoleFormItem from './RolesFormItem.vue';
+import { multiStepFormItem } from '../mixins/multiStepFormItem'
 
 export default {
   name: 'RoleForm',
-  data () {
-    return {
-      openCompany: 1,
-    }
-  },
-  props: {
-    availableCompanies: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-  },
+  mixins: [multiStepFormItem],
+
   components: {
     RoleFormItem,
   },
-  methods: {
-    setOpenCompany(index) {
-      this.openCompany = this.openCompany === index + 1 ? null : index + 1;
-    }
-  }
 }
 </script>

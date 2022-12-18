@@ -42,19 +42,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-@import '../../assets/scss/index.scss';
-
-.fade-enter-active, .fade-leave-active {
-  transition: 0.2s;
-  overflow-y: hidden;
-
-  max-height: 300px;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  max-height: 0px
-}
-
-</style>

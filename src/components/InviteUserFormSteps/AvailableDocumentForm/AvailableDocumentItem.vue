@@ -144,16 +144,19 @@ export default {
       ]
     }
   },
+  
   props: {
     index: Number,
     company: String,
     openCompany: Number,
     setOpenCompany: Function,
   },
+
   components: {
     Colapse,
     AvailableDocumentDeepSelectColumn
   },
+
   methods: {
     changeCountOfSelected(value) {
       if(value) {

@@ -13,6 +13,7 @@
         :company="company"
         :openCompany="openCompany"
         :setOpenCompany="setOpenCompany"
+        :isDeseabledMultiseelct="isDeseabledMultiseelct"
       />
     </div>
   </div>
@@ -20,30 +21,21 @@
 
 <script> 
 import AvailableLocationsFormBody from './AvailableLocationsFormItem.vue';
+import { multiStepFormItem } from '../mixins/multiStepFormItem'
+
 export default {
   name: 'LocationForm',
-  data () {
-    return {
-      openCompany: 1,
-    }
-  },
+  
+  mixins: [multiStepFormItem],
+
   props: {
-    availableCompanies: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
     goToStep: Function,
+    isDeseabledMultiseelct: Boolean
   },
+  
   components: {
     AvailableLocationsFormBody,
   },
-  methods: {
-    setOpenCompany(index) {
-      this.openCompany = this.openCompany === index + 1 ? null : index + 1;
-    }
-  }
 }
 </script>
 

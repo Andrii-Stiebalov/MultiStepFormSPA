@@ -16,6 +16,7 @@
           placeholder=""
           deselectLabel=""
           selectLabel=""
+          :disabled="isDeseabledMultiseelct"
         >
           <template 
             slot="singleLabel" 
@@ -45,7 +46,6 @@
     </Colapse>
   </div>
 </template>
-
 
 <script> 
 import Multiselect from 'vue-multiselect';
@@ -80,11 +80,14 @@ export default {
     company: String,
     openCompany: Number,
     setOpenCompany: Function,
+    isDeseabledMultiseelct: Boolean,
   },
+  
   components: {
     Multiselect,
     Colapse
   },
+
   watch: {
     locations : {
       handler: function(locations) {
@@ -105,6 +108,7 @@ export default {
       console.log(selectedLocations);
     },
   },
+  
   methods: {
     selectAllLocations(e) {
       console.log(e.target)

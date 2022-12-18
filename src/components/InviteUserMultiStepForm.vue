@@ -1,5 +1,5 @@
 <template>
-  <div class="MultiStepFormContainer">
+  <div class="MultiStepFormContainer" id="MultiStepForm">
     <div class="title">Invite User</div>
     <div class="stepFormNav">
       <div 
@@ -8,9 +8,9 @@
           'stepFormNavItem--isActive': curentStep === index + 1,
           'stepFormNavItem--complited': complitedSteps.includes(index + 1),
         }"
-        v-for="(value, index) in InviteUserFormSteps.steps"
+        v-for="(value, index) in steps"
         :key="value"
-        @click="curentStep = index + 1"
+        @click="goToStep(index + 1)"
       >
         <div class="stepFormNavItemStatus">
           {{ index + 1 }}
@@ -23,16 +23,18 @@
     <div class="hr"></div>
     <div class="stepFormMain"> 
       <transition name="fadeStep">
-        <MainInfoFormStep 
+        <MainInfoFormStep
           v-show="checkIndexOpenCompany('Main Info')"
+          :isDeseabledMultiseelct="isDeseabledMultiseelct"
           @selecte="setAvailableCompanies"
-          />
+        />
       </transition>
       <transition name="fadeStep">
         <AvailableLocationsFormStep 
           v-show="checkIndexOpenCompany('Available Locations')" 
           :goToStep="goToStep"
           :availableCompanies="availableCompanies"
+          :isDeseabledMultiseelct="isDeseabledMultiseelct"
         />
       </transition>
       <transition name="fadeStep">
@@ -50,7 +52,9 @@
     </div>
     <div class="hr"></div>
     <div class="footer">
-      <button class="formButton" @click="nextStep()">{{curentStep !== InviteUserFormSteps.steps.length ? 'Next Step' : 'Invite User'}}</button>
+      <button class="formButton" v-if='curentStep !== steps.length' @click="nextStep()">Next Step</button>
+      <button class="formButton" v-if='curentStep === steps.length' @click="inviteUser()">Invite User</button>
+      <button class="formButton" v-if='isUserWasInvited' @click="addChanges()">Add changes</button>
       <div class="toggler" v-show="curentStep === 1">
         <el-switch v-model="activeinAll" />
         <label 
@@ -70,15 +74,19 @@ import AvailableLocationsFormStep from './InviteUserFormSteps/AvailableLocations
 import AvailableDocumentForm from './InviteUserFormSteps/AvailableDocumentForm/AvailableDocumentForm.vue';
 import RoleForm from './InviteUserFormSteps/RoleForm/RolesForm.vue';
 
+import { toggleAbledInputs } from '../assets/helpers/toggleAbledInputs'
+
 export default {
   name: 'MultiStepForm',
   data() {
     return {
-      InviteUserFormSteps,
+      steps: InviteUserFormSteps.steps,
       curentStep: 1,
-      complitedSteps: [],
+      complitedSteps: ['Main Info', 'Available Locations', 'Available Documents Custom Fields', 'Roles'],
       activeinAll: 'false',
       availableCompanies: [],
+      isDeseabledMultiseelct: false,
+      isUserWasInvited: false,
     };
   },
   props: { 
@@ -87,18 +95,45 @@ export default {
 
   methods: {
     nextStep() {
-    this.complitedSteps.push(this.curentStep);
-    if (this.curentStep == InviteUserFormSteps.steps.length) {
-      this.setIsOpenInviteUser(false)
-      return;
-    }
+      this.complitedSteps.push(this.curentStep);
       this.curentStep++;
+    },
+
+    goToStep(index) {
+      this.curentStep = index;
+    },
+
+    inviteUser() {
+      if (this.isUserWasInvited) {
+        return;
+      }
+      
+      this.$notify.success({
+          title: 'Success',
+          message: 'User was invited! 🎉',
+          showClose: false
+      })
+
+      this.complitedSteps = this.steps
+      .map((step, index) => index + 1);
+
+      toggleAbledInputs(true);
+
+      this.isDeseabledMultiseelct = true;
+      this.isUserWasInvited = true;
+    },
+
+    addChanges() {
+      toggleAbledInputs(false)
+
+      this.isUserWasInvited = false;
+      this.isDeseabledMultiseelct = false;
     },
 
     keydownNextStep(event) {
       if(event.keyCode === 9) {
         event.preventDefault();
-        if (this.curentStep === InviteUserFormSteps.steps.length) {
+        if (this.curentStep === this.steps.length) {
           this.curentStep = 1;
           return;
         }
@@ -107,25 +142,20 @@ export default {
       }
     },
 
-    goToStep(index) {
-      this.curentStep = index;
-    },
-
     setAvailableCompanies(companies) {
       this.availableCompanies = companies.availableCompanies;
       console.log(companies)
     },
 
     checkIndexOpenCompany(nameIndex) {
-      console.log(this.InviteUserFormSteps.steps.indexOf(nameIndex) + 1 === this.curentStep)
-      return this.InviteUserFormSteps.steps.indexOf(nameIndex) + 1 === this.curentStep;
+      return this.steps.indexOf(nameIndex) + 1 === this.curentStep;
     }
   },
 
   mounted() {
     window.addEventListener("keydown", this.keydownNextStep)
-    
   },
+
   unmounted() {
     window.removeEventListener("keydown", this.keydownNextStep)
   },
@@ -156,28 +186,10 @@ export default {
   margin: auto;
 
   position: absolute;
-  top: 50%;
+  margin: 100px 0;
+  top: 50px;
   left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.close {
-  background-image: url(../assets/icons/close.svg);
-    @extend %afterIcon;
-    position: absolute;
-    width: 26px;
-    height: 26px;
-
-    top: 19px;
-    right: 27px;
-}
-
-.title {
-  font-family: 'Inter';
-  font-weight: 600;
-  color: $mainColor;
-  font-size: 24px;
-  line-height: 32px;
+  transform: translate(-50%);
 }
 
 .footer {
@@ -275,19 +287,9 @@ export default {
   @extend %mainText;
 }
 
-.el-switch__core {
-  width: 44px !important;
-  height: 24px;
-  border-radius: 12px;
-
-  &::after {
-    width: 20px;
-    height: 20px;
-  }
-}
-
 .toggler__label {
   @extend %mainText;
+
   color: $mainColor;
   font-weight: 500;
   margin-left: 10px;
@@ -296,6 +298,7 @@ export default {
   &::after {
     content: '';
     background-image: url(../assets/icons/info.svg);
+
     @extend %afterIcon;
     height: 19.5px;
     width:  19.5px;
@@ -324,14 +327,6 @@ export default {
   }
 }
 
-.hr {
-  width: calc(100% + 48px);
-  margin-left: -24px;
-  height: 1px;
-  background: #000;
-  opacity: 0.1;
-}
-
 .formButton {
   font-family: inherit;
   font-weight: 600;
@@ -348,15 +343,4 @@ export default {
   cursor: pointer;
 }
 
-.fadeStep-enter-active, .fadeStep-leave-active {
-  transition: 0.2s;
-  overflow-y: hidden;
-  transform: scale(1);
-
-}
-.fadeStep-enter, .fadeStep-leave-to  {
-  opacity: 0;
-  max-height: 0px;
-  transform: scale(0);
-}
 </style>
