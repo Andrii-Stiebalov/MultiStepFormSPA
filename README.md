@@ -4,7 +4,7 @@ This is the implementation of Multi Step Form.
 
 Project time: 3 days 🛰
 
-[DEMO LINL](https://andrii-stiebalov.github.io/MultiStepFormSPA/)
+[DEMO LINK](https://andrii-stiebalov.github.io/MultiStepFormSPA/)
 
 ## Used technologies:
  Vue👽
